@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Purva Thorat — Portfolio</title>
+<meta name="description" content="Portfolio — SQL, Power BI, Tableau, Excel, AI Integration. 4 end-to-end projects with live dashboards."/>
+<!-- Google Fonts loaded NON-BLOCKING via JS — system fonts used as instant fallback -->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F9F7F2;--surface:#F0EDE6;--surface2:#E8E3D8;--border:rgba(28,20,14,0.1);--border-hover:rgba(28,20,14,0.22);
+  --accent:#7B1818;--accent2:#9B2020;--accent-dim:rgba(123,24,24,0.07);--accent-glow:rgba(123,24,24,0.18);
+  --text:#1C1410;--text2:#3D3530;--muted:#9A8F85;--muted2:#7A6F65;
+  --serif:'Playfair Display',Georgia,'Times New Roman',serif;
+  --sans:'Inter',system-ui,-apple-system,sans-serif;
+  --mono:'JetBrains Mono','Courier New',monospace;
+  --ease:cubic-bezier(0.22,1,0.36,1);
+}
+html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:var(--accent) var(--surface2)}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--accent);border-radius:3px}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:400;line-height:1.65;overflow-x:hidden}
+::selection{background:var(--accent);color:#F9F7F2}
+
+/* ── CURSOR ── */
+.cursor{position:fixed;width:18px;height:18px;border:1.5px solid var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transition:transform 0.15s var(--ease);mix-blend-mode:multiply}
+.cursor-dot{position:fixed;width:5px;height:5px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9999}
+
+/* ── PROGRESS BAR ── */
+.progress-bar{position:fixed;top:0;left:0;height:2px;background:var(--accent);z-index:9999;width:0;transition:width 0.1s}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:0 3rem;height:64px;display:flex;align-items:center;justify-content:space-between;background:rgba(249,247,242,0.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:transform 0.4s var(--ease)}
+nav.hide{transform:translateY(-100%)}
+.nav-logo{font-family:var(--serif);font-size:1.1rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:0.6rem;font-weight:700}
+.nav-dot{width:8px;height:8px;background:var(--accent);border-radius:50%;animation:pulsedot 2s infinite}
+@keyframes pulsedot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.75)}}
+.nav-links{display:flex;gap:0.3rem;list-style:none}
+.nav-links a{font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted2);text-decoration:none;padding:0.5rem 1rem;border-radius:2px;transition:all 0.2s;font-weight:500}
+.nav-links a:hover,.nav-links a.active{color:var(--accent);background:var(--accent-dim)}
+.nav-cta{font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:#F9F7F2;background:var(--accent);padding:0.5rem 1.4rem;text-decoration:none;border-radius:2px;font-weight:600;transition:all 0.25s}
+.nav-cta:hover{background:var(--accent2);transform:translateY(-1px)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:5px;background:none;border:none}
+.hamburger span{width:22px;height:1.5px;background:var(--text);display:block;transition:all 0.3s}
+
+/* ── MOBILE NAV ── */
+.mobile-nav{position:fixed;inset:0;z-index:999;background:var(--text);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2rem;opacity:0;visibility:hidden;transition:all 0.4s}
+.mobile-nav.open{opacity:1;visibility:visible}
+.mobile-nav a{font-size:1.5rem;font-family:var(--serif);color:#F9F7F2;text-decoration:none;transition:color 0.2s}
+.mobile-nav a:hover{color:var(--accent)}
+.mob-close{position:absolute;top:1.5rem;right:1.5rem;font-size:1.8rem;color:rgba(249,247,242,0.5);cursor:pointer;background:none;border:none;line-height:1}
+
+/* ── HERO ── */
+#hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:0 3rem}
+.hero-bg{position:absolute;inset:0}
+.grid-overlay{position:absolute;inset:0;background-image:linear-gradient(rgba(123,24,24,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(123,24,24,0.04) 1px,transparent 1px);background-size:80px 80px;mask-image:radial-gradient(ellipse 60% 60% at 30% 50%,black,transparent 70%)}
+.hero-glow{position:absolute;top:20%;right:-5%;width:500px;height:500px;background:radial-gradient(circle,rgba(123,24,24,0.07) 0%,transparent 60%);filter:blur(60px);animation:floatbg 8s ease-in-out infinite}
+@keyframes floatbg{0%,100%{transform:translate(0,0)}50%{transform:translate(20px,-25px)}}
+#hero::after{content:'';position:absolute;right:0;top:0;width:38%;height:100%;background:var(--accent);clip-path:polygon(18% 0,100% 0,100% 100%,0% 100%);opacity:0.055;pointer-events:none}
+.hero-content{position:relative;z-index:2;max-width:880px}
+.hero-badge{display:inline-flex;align-items:center;gap:0.6rem;padding:0.45rem 1.2rem;background:transparent;border:1px solid var(--accent);margin-bottom:2rem}
+.badge-dot{width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulsedot 1.5s infinite}
+.hero-badge span{font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.hero-name{font-family:var(--serif);font-size:clamp(3.2rem,8vw,7rem);line-height:1;letter-spacing:-0.02em;margin-bottom:1.5rem;color:var(--text);font-weight:800}
+.hero-desc{font-size:1rem;color:var(--muted2);max-width:560px;line-height:1.75;margin-bottom:2.5rem}
+.hero-desc strong{color:var(--text);font-weight:600}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:0.6rem;padding:0.85rem 2rem;font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;font-weight:600;transition:all 0.3s var(--ease);border:none;cursor:pointer;border-radius:2px}
+.btn-primary{background:var(--accent);color:#F9F7F2}
+.btn-primary:hover{background:var(--accent2);transform:translateY(-2px);box-shadow:0 8px 24px var(--accent-glow)}
+.btn-outline{background:transparent;color:var(--text);border:1.5px solid var(--border-hover)}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-dim)}
+.hero-metrics{position:absolute;right:3rem;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:2.5rem}
+.hm-num{font-family:var(--serif);font-size:2.8rem;color:var(--accent);line-height:1;font-weight:700}
+.hm-label{font-size:0.6rem;color:var(--muted);letter-spacing:0.15em;text-transform:uppercase;margin-top:0.3rem}
+.scroll-ind{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:0.8rem}
+.scroll-mouse{width:22px;height:34px;border:1.5px solid var(--muted);border-radius:11px;position:relative}
+.scroll-mouse::after{content:'';position:absolute;top:6px;left:50%;transform:translateX(-50%);width:2px;height:8px;background:var(--accent);border-radius:1px;animation:scrolldown 1.5s infinite}
+@keyframes scrolldown{0%{opacity:1;transform:translateX(-50%) translateY(0)}100%{opacity:0;transform:translateX(-50%) translateY(12px)}}
+.scroll-txt{font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted)}
+
+/* ── SECTIONS ── */
+section{padding:7rem 3rem;position:relative}
+.divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent)}
+.sec-tag{display:inline-flex;align-items:center;gap:0.8rem;font-size:0.6rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:1.2rem}
+.sec-tag::before{content:'';width:30px;height:1px;background:var(--accent)}
+.sec-title{font-family:var(--serif);font-size:clamp(2rem,4vw,3.2rem);line-height:1.1;letter-spacing:-0.01em;font-weight:700;color:var(--text)}
+.sec-sub{font-family:var(--serif);font-size:clamp(1.3rem,2.5vw,2rem);color:var(--accent);font-weight:600;margin-top:0.3rem;display:block}
+.sec-header{margin-bottom:4rem}
+
+/* ── ABOUT ── */
+.about-text{color:var(--text2);font-size:0.95rem;line-height:1.8;max-width:720px}
+.about-text p{margin-bottom:1.2rem}
+.about-text strong{color:var(--accent);font-weight:600}
+.about-highlight{background:var(--accent);padding:1.5rem 2rem;margin:1.5rem 0;font-size:0.9rem;color:#F9F7F2;font-style:italic}
+.about-highlight strong{color:#F9F7F2;font-weight:700}
+
+/* ── SKILLS (burgundy block) ── */
+#skills{background:var(--accent);padding:7rem 3rem}
+#skills .sec-tag{color:rgba(249,247,242,0.65)}
+#skills .sec-tag::before{background:rgba(249,247,242,0.45)}
+#skills .sec-title{color:#F9F7F2}
+#skills .sec-sub{color:rgba(249,247,242,0.6)}
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(249,247,242,0.14);border:1px solid rgba(249,247,242,0.14);overflow:hidden}
+.sk-card{background:rgba(249,247,242,0.055);padding:2rem;transition:background 0.35s;position:relative}
+.sk-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:rgba(249,247,242,0.55);transform:scaleX(0);transform-origin:left;transition:transform 0.35s}
+.sk-card:hover{background:rgba(249,247,242,0.115)}
+.sk-card:hover::before{transform:scaleX(1)}
+.sk-icon{width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:rgba(249,247,242,0.1);border:1px solid rgba(249,247,242,0.18);border-radius:4px;font-size:1.2rem;margin-bottom:1rem}
+.sk-name{font-size:0.95rem;font-weight:600;color:#F9F7F2;margin-bottom:0.4rem}
+.sk-desc{font-size:0.78rem;color:rgba(249,247,242,0.62);line-height:1.6}
+.sk-bar{margin-top:1rem;height:2px;background:rgba(249,247,242,0.14);border-radius:2px;overflow:hidden}
+.sk-fill{height:100%;background:rgba(249,247,242,0.65);border-radius:2px;width:0;transition:width 1.4s var(--ease)}
+.sk-tag{display:inline-block;margin-top:0.8rem;font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(249,247,242,0.78);border:1px solid rgba(249,247,242,0.28);padding:0.2rem 0.6rem}
+.tools-strip{margin-top:3rem;padding:2rem;background:rgba(249,247,242,0.055);border:1px solid rgba(249,247,242,0.14)}
+.tools-title{font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:rgba(249,247,242,0.45);margin-bottom:1.2rem}
+.tools-list{display:flex;flex-wrap:wrap;gap:0.5rem}
+.tool-pill{font-size:0.7rem;padding:0.35rem 0.9rem;background:rgba(249,247,242,0.07);border:1px solid rgba(249,247,242,0.18);color:rgba(249,247,242,0.72);transition:all 0.25s;cursor:default}
+.tool-pill:hover{background:rgba(249,247,242,0.17);color:#F9F7F2;border-color:rgba(249,247,242,0.48)}
+
+/* ── PROJECTS ── */
+.proj-card{background:var(--bg);border:1px solid var(--border);overflow:hidden;margin-bottom:3rem;transition:all 0.4s var(--ease);border-left:3px solid transparent}
+.proj-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(123,24,24,0.1);border-left-color:var(--accent)}
+.proj-top{padding:1.5rem 2.5rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);background:var(--surface)}
+.proj-num{font-family:var(--serif);font-size:1rem;color:var(--accent);font-weight:700}
+.proj-status{display:inline-flex;align-items:center;gap:0.5rem;font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.3rem 0.9rem;font-weight:600;color:var(--accent);background:var(--accent-dim);border:1px solid rgba(123,24,24,0.2)}
+.proj-status::before{content:'';width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulsedot 1.5s infinite}
+.proj-body{padding:2rem 2.5rem}
+.proj-name{font-family:var(--serif);font-size:1.7rem;margin-bottom:0.3rem;letter-spacing:-0.01em;line-height:1.2;color:var(--text);font-weight:700}
+.proj-subtitle{font-size:0.78rem;color:var(--muted);margin-bottom:1.5rem;letter-spacing:0.04em}
+.proj-impact{background:var(--surface);border:1px solid var(--border);padding:1.5rem;margin-bottom:1.5rem;border-left:2px solid var(--accent)}
+.impact-title{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:0.8rem;font-weight:700}
+.impact-list{list-style:none}
+.impact-list li{position:relative;padding-left:1.4rem;margin-bottom:0.6rem;font-size:0.85rem;color:var(--text2);line-height:1.65}
+.impact-list li::before{content:'▸';position:absolute;left:0;color:var(--accent);font-weight:700}
+.impact-list li strong{color:var(--text);font-weight:600}
+.metric{color:var(--accent);font-weight:700;font-family:var(--mono);font-size:0.83rem}
+.proj-skills{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:1.2rem}
+.proj-skill{font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted2);background:var(--surface);border:1px solid var(--border);padding:0.25rem 0.75rem;transition:all 0.2s}
+.proj-skill:hover{border-color:var(--accent);color:var(--accent)}
+.proj-links{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border-top:1px solid var(--border)}
+.plink{display:flex;align-items:center;justify-content:center;gap:0.5rem;padding:1rem;background:var(--surface);text-decoration:none;color:var(--muted2);font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;transition:all 0.25s;font-weight:600}
+.plink:hover{background:var(--accent);color:#F9F7F2}
+.plink.off{opacity:0.28;pointer-events:none}
+/* inline SVG icons for links */
+.ico{width:14px;height:14px;fill:currentColor;flex-shrink:0}
+
+/* ── CONTACT ── */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.contact-heading{font-family:var(--serif);font-size:clamp(2.2rem,4vw,3.6rem);line-height:1.05;letter-spacing:-0.01em;font-weight:700;color:var(--text)}
+.contact-sub-accent{font-family:var(--serif);font-size:clamp(1.4rem,2.5vw,2.1rem);color:var(--accent);font-weight:600;margin-top:0.3rem;display:block}
+.contact-desc{color:var(--muted2);font-size:0.9rem;line-height:1.75;margin-top:1.2rem}
+.contact-cards{display:flex;flex-direction:column;gap:1px;background:var(--border);border:1px solid var(--border);overflow:hidden}
+.contact-card{display:flex;align-items:center;gap:1.2rem;padding:1.4rem 1.8rem;background:var(--surface);text-decoration:none;color:var(--text);transition:all 0.25s}
+.contact-card:hover{background:var(--accent);color:#F9F7F2}
+.contact-card:hover .cc-label{color:rgba(249,247,242,0.55)}
+.contact-card:hover .cc-value{color:#F9F7F2}
+.contact-card:hover .cc-icon{background:rgba(249,247,242,0.14);border-color:rgba(249,247,242,0.28);color:#F9F7F2}
+.cc-icon{width:42px;height:42px;display:flex;align-items:center;justify-content:center;background:var(--accent-dim);border:1px solid rgba(123,24,24,0.14);border-radius:2px;color:var(--accent);font-size:1.1rem;flex-shrink:0;transition:all 0.25s}
+.cc-label{font-size:0.6rem;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;transition:color 0.25s}
+.cc-value{font-size:0.88rem;color:var(--text2);margin-top:0.1rem;transition:color 0.25s}
+
+/* ── FOOTER ── */
+footer{padding:2rem 3rem;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);background:var(--text)}
+footer p{font-size:0.7rem;color:rgba(249,247,242,0.45);font-family:var(--serif);font-style:italic}
+.footer-links{display:flex;gap:1.2rem}
+.footer-links a{color:rgba(249,247,242,0.38);transition:color 0.2s;text-decoration:none;font-size:1rem}
+.footer-links a:hover{color:var(--accent)}
+
+/* ── BACK TO TOP ── */
+.back-top{position:fixed;bottom:2rem;right:2rem;width:42px;height:42px;background:var(--accent);display:flex;align-items:center;justify-content:center;color:#F9F7F2;text-decoration:none;font-size:1rem;opacity:0;visibility:hidden;transition:all 0.3s;z-index:100;border-radius:2px}
+.back-top.show{opacity:1;visibility:visible}
+.back-top:hover{background:var(--accent2);transform:translateY(-3px)}
+
+/* ── FADE-IN ANIMATIONS (pure CSS, no library) ── */
+.fade-up{opacity:0;transform:translateY(28px);transition:opacity 0.75s var(--ease),transform 0.75s var(--ease)}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+  .hero-metrics{display:none}
+  nav,section,#hero{padding-left:1.5rem;padding-right:1.5rem}
+  .contact-grid{grid-template-columns:1fr;gap:3rem}
+  .skills-grid{grid-template-columns:1fr 1fr}
+  .proj-links{grid-template-columns:1fr}
+}
+@media(max-width:640px){
+  .nav-links,.nav-cta{display:none}
+  .hamburger{display:flex}
+  .skills-grid{grid-template-columns:1fr}
+  .hero-name{font-size:clamp(2.6rem,12vw,4rem)}
+  .proj-body,.proj-top{padding:1.5rem}
+  .proj-links{grid-template-columns:1fr}
+  footer{flex-direction:column;gap:1rem;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- CUSTOM CURSOR -->
+<div class="cursor" id="cur"></div>
+<div class="cursor-dot" id="curDot"></div>
+
+<!-- PROGRESS BAR -->
+<div class="progress-bar" id="progBar"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo"><span class="nav-dot"></span>Purva Thorat</a>
+  <ul class="nav-links">
+    <li><a href="#about" data-s="about">About</a></li>
+    <li><a href="#skills" data-s="skills">Skills</a></li>
+    <li><a href="#projects" data-s="projects">Projects</a></li>
+    <li><a href="#contact" data-s="contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Hire Me</a>
+  <button class="hamburger" id="ham" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobNav">
+  <button class="mob-close" id="mobClose">&#x2715;</button>
+  <a href="#about" onclick="document.getElementById('mobNav').classList.remove('open')">About</a>
+  <a href="#skills" onclick="document.getElementById('mobNav').classList.remove('open')">Skills</a>
+  <a href="#projects" onclick="document.getElementById('mobNav').classList.remove('open')">Projects</a>
+  <a href="#contact" onclick="document.getElementById('mobNav').classList.remove('open')">Contact</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg">
+    <div class="grid-overlay"></div>
+    <div class="hero-glow"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge fade-up">
+      <span class="badge-dot"></span>
+      <span>Open to Internships &amp; Opportunities</span>
+    </div>
+    <h1 class="hero-name fade-up" style="transition-delay:0.1s">Purva Thorat</h1>
+    <p class="hero-desc fade-up" style="transition-delay:0.2s">
+      Turning raw data into <strong>strategic business decisions</strong> — with SQL, Power BI, Tableau, Excel &amp; AI woven into every workflow. <strong>4 end-to-end projects</strong> with live dashboards, executive reports &amp; real metrics.
+    </p>
+    <div class="hero-actions fade-up" style="transition-delay:0.3s">
+      <a href="#projects" class="btn btn-primary">&#128640; View My Work</a>
+      <a href="https://github.com/Purva-Thorat" target="_blank" class="btn btn-outline">&#128279; GitHub</a>
+      <a href="https://www.linkedin.com/in/purva-thorat-a00138290" target="_blank" class="btn btn-outline">&#128101; LinkedIn</a>
+    </div>
+  </div>
+  <div class="hero-metrics">
+    <div><div class="hm-num" data-count="4">4+</div><div class="hm-label">Projects</div></div>
+    <div><div class="hm-num" data-count="4">4+</div><div class="hm-label">Live Dashboards</div></div>
+    <div><div class="hm-num" data-count="6">6+</div><div class="hm-label">Tools Mastered</div></div>
+  </div>
+  <div class="scroll-ind">
+    <div class="scroll-mouse"></div>
+    <span class="scroll-txt">Scroll</span>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="sec-header fade-up">
+    <div class="sec-tag">01 — About Me</div>
+    <h2 class="sec-title">Data-driven.</h2>
+    <span class="sec-sub">AI-powered workflows.</span>
+  </div>
+  <div class="about-text fade-up">
+    <p>Hi, I'm <strong>Purva</strong> — based in <strong>Pune, India</strong>, with a passion for transforming raw datasets into actionable business intelligence that drives real decisions.</p>
+    <p>My edge is <strong>speed without compromise</strong>: with hands-on experience across <strong>SQL, Power BI, Tableau, and AI-integrated workflows</strong>, I've built <strong>4 complete analytics projects</strong> — each with a live dashboard, executive report, and real business outcomes.</p>
+    <div class="about-highlight">
+      <strong>What sets me apart:</strong> Every project has a live interactive dashboard, a detailed report, and real measurable metrics — not just charts, but <strong>actionable business strategy</strong> and stakeholder-ready outputs.
+    </div>
+    <p>I'm actively seeking <strong>internships</strong> where I can contribute from day one — with a portfolio that proves I ship complete, high-quality work.</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="sec-header fade-up">
+    <div class="sec-tag">02 — Skills &amp; Tools</div>
+    <h2 class="sec-title">Technical</h2>
+    <span class="sec-sub">arsenal.</span>
+  </div>
+  <div class="skills-grid fade-up">
+    <div class="sk-card">
+      <div class="sk-icon">&#128452;</div>
+      <div class="sk-name">SQL &amp; PostgreSQL</div>
+      <div class="sk-desc">Complex queries, window functions, CTEs, subqueries &amp; array operations for large-scale data extraction and analysis.</div>
+      <div class="sk-bar"><div class="sk-fill" data-w="90%"></div></div>
+      <span class="sk-tag">Advanced</span>
+    </div>
+    <div class="sk-card">
+      <div class="sk-icon">&#128202;</div>
+      <div class="sk-name">Power BI &amp; DAX</div>
+      <div class="sk-desc">Interactive dashboards, DAX measures, data modeling, geospatial maps &amp; drill-through analysis for real-time BI.</div>
+      <div class="sk-bar"><div class="sk-fill" data-w="88%"></div></div>
+      <span class="sk-tag">Advanced</span>
+    </div>
+    <div class="sk-card">
+      <div class="sk-icon">&#128200;</div>
+      <div class="sk-name">Tableau</div>
+      <div class="sk-desc">Data storytelling with calculated fields, interactive filters, geographic heat maps &amp; trend analysis visualizations.</div>
+      <div class="sk-bar"><div class="sk-fill" data-w="85%"></div></div>
+      <span class="sk-tag">Advanced</span>
+    </div>
+    <div class="sk-card">
+      <div class="sk-icon">&#128203;</div>
+      <div class="sk-name">Excel &amp; Power Query</div>
+      <div class="sk-desc">Advanced formulas, pivot tables, Power Query ETL, conditional formatting &amp; Copilot / Tracelight AI integration.</div>
+      <div class="sk-bar"><div class="sk-fill" data-w="92%"></div></div>
+      <span class="sk-tag">Expert</span>
+    </div>
+    <div class="sk-card">
+      <div class="sk-icon">&#129302;</div>
+      <div class="sk-name">AI Integration</div>
+      <div class="sk-desc">Embedding Copilot, Julius AI, Claude &amp; Manus AI natively into every workflow for faster, deeper analysis.</div>
+      <div class="sk-bar"><div class="sk-fill" data-w="87%"></div></div>
+      <span class="sk-tag">Core Skill</span>
+    </div>
+    <div class="sk-card">
+      <div class="sk-icon">&#128221;</div>
+      <div class="sk-name">Executive Reporting</div>
+      <div class="sk-desc">Translating complex findings into clear, stakeholder-ready PDF &amp; Word reports with data-backed recommendations.</div>
+      <div class="sk-bar"><div class="sk-fill" data-w="90%"></div></div>
+      <span class="sk-tag">Advanced</span>
+    </div>
+  </div>
+  <div class="tools-strip fade-up" style="transition-delay:0.1s">
+    <div class="tools-title">Full Technology Stack</div>
+    <div class="tools-list">
+      <span class="tool-pill">SQL &amp; PostgreSQL</span><span class="tool-pill">Power BI</span><span class="tool-pill">Tableau</span>
+      <span class="tool-pill">Excel</span><span class="tool-pill">Power Query</span><span class="tool-pill">DAX</span>
+      <span class="tool-pill">Git &amp; GitHub</span><span class="tool-pill">Julius AI</span><span class="tool-pill">Manus AI</span>
+      <span class="tool-pill">Claude AI</span><span class="tool-pill">MS Copilot</span><span class="tool-pill">Tracelight</span>
+    </div>
+  </div>
+  <div class="tools-strip fade-up" style="margin-top:1rem;transition-delay:0.15s">
+    <div class="tools-title">Soft Skills</div>
+    <div class="tools-list">
+      <span class="tool-pill">Analytical Thinking</span><span class="tool-pill">Data Storytelling</span>
+      <span class="tool-pill">Attention to Detail</span><span class="tool-pill">Self-Starter</span>
+      <span class="tool-pill">Stakeholder Communication</span><span class="tool-pill">Adaptability</span>
+      <span class="tool-pill">Project Management</span><span class="tool-pill">Curiosity &amp; Initiative</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="sec-header fade-up">
+    <div class="sec-tag">03 — Projects</div>
+    <h2 class="sec-title">Real projects.</h2>
+    <span class="sec-sub">Real metrics.</span>
+  </div>
+
+  <!-- PROJECT 1 -->
+  <div class="proj-card fade-up">
+    <div class="proj-top">
+      <span class="proj-num">01</span>
+      <span class="proj-status">Live Dashboard</span>
+    </div>
+    <div class="proj-body">
+      <h3 class="proj-name">Telco360 — Customer Churn Analytics</h3>
+      <p class="proj-subtitle">End-to-end telecom churn analysis &#8594; strategic retention framework</p>
+      <div class="proj-impact">
+        <div class="impact-title">Impact &amp; Results</div>
+        <ul class="impact-list">
+          <li><strong>Analyzed</strong> telecom customer data for 7,043 customers using <strong>Excel (Tracelight AI, Claude) + Julius AI + Manus AI</strong>, revealing a <span class="metric">26.54%</span> overall churn rate and 5 critical risk segments.</li>
+          <li><strong>Identified</strong> month-to-month contracts churning at <span class="metric">42.71%</span>, first-year customers at <span class="metric">47.68%</span>, and fiber optic users at <span class="metric">41.89%</span>.</li>
+          <li><strong>Discovered</strong> electronic check payers churn at <span class="metric">45.29%</span> vs. only <span class="metric">2.83%</span> for 2-year contract customers.</li>
+          <li><strong>Delivered</strong> 4 data-backed retention recommendations + a live BI dashboard + executive Word report.</li>
+        </ul>
+      </div>
+      <div class="proj-skills">
+        <span class="proj-skill">Excel + AI</span><span class="proj-skill">Manus AI</span><span class="proj-skill">Julius AI</span>
+        <span class="proj-skill">Claude AI</span><span class="proj-skill">Tracelight</span><span class="proj-skill">Churn Analysis</span>
+        <span class="proj-skill">BI Dashboard</span><span class="proj-skill">Executive Reporting</span>
+      </div>
+    </div>
+    <div class="proj-links">
+      <a href="https://github.com/Purva-Thorat/Telco360-Customer-Churn-Analytics" target="_blank" class="plink">
+        <svg class="ico" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.74-1.33-1.74-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .1-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 013-.4c1.02.004 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.65.25 2.87.12 3.17.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub Repo
+      </a>
+      <a href="https://github.com/Purva-Thorat/Telco360-Customer-Churn-Analytics/raw/master/reports/Telco360_Customer_Churn_Analytics_Report.docx" target="_blank" class="plink">
+        <svg class="ico" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM8 13h8v1H8v-1zm0 3h8v1H8v-1zm0-6h5v1H8v-1z"/></svg>
+        Word Report
+      </a>
+      <a href="https://telcodash-kcekzk5z.manus.space" target="_blank" class="plink">
+        <svg class="ico" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+        Live Dashboard
+      </a>
+    </div>
+  </div>
+
+  <!-- PROJECT 2 -->
+  <div class="proj-card fade-up" style="transition-delay:0.05s">
+    <div class="proj-top">
+      <span class="proj-num">02</span>
+      <span class="proj-status">Live Dashboard</span>
+    </div>
+    <div class="proj-body">
+      <h3 class="proj-name">BevAnalytica — US Beverage Revenue Tracker</h3>
+      <p class="proj-subtitle">Power BI deep-dive into $8M annual cold drink sales across all 50 US states</p>
+      <div class="proj-impact">
+        <div class="impact-title">Impact &amp; Results</div>
+        <ul class="impact-list">
+          <li><strong>Built</strong> an interactive Power BI dashboard analyzing <span class="metric">$8M</span> in annual revenue and <span class="metric">16.45M units</span> sold across all 50 US states using DAX, geospatial mapping &amp; data modeling.</li>
+          <li><strong>Uncovered</strong> a <span class="metric">2× summer revenue surge</span> ($0.5M/mo in Q1 → $1.1M/mo at peak), enabling seasonal inventory planning for 6 major brands — Coca-Cola, Sprite, Fanta, Powerade, Diet Coke &amp; Dasani.</li>
+          <li><strong>Identified</strong> geographic revenue concentration: CA, TX &amp; FL account for <span class="metric">~40%</span> of total revenue — informing targeted distribution strategy.</li>
+          <li><strong>Delivered</strong> 6 strategic recommendations on pricing ($0.48 avg/unit), seasonal optimization &amp; geographic expansion + executive Word report.</li>
+        </ul>
+      </div>
+      <div class="proj-skills">
+        <span class="proj-skill">Power BI</span><span class="proj-skill">DAX</span><span class="proj-skill">Power Query</span>
+        <span class="proj-skill">Data Modeling</span><span class="proj-skill">Geospatial Analysis</span>
+        <span class="proj-skill">Sales Analytics</span><span class="proj-skill">Executive Reporting</span>
+      </div>
+    </div>
+    <div class="proj-links">
+      <a href="https://github.com/Purva-Thorat/POWER-BI-Project" target="_blank" class="plink">
+        <svg class="ico" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.74-1.33-1.74-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .1-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 013-.4c1.02.004 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.65.25 2.87.12 3.17.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub Repo
+      </a>
+      <a href="https://github.com/Purva-Thorat/POWER-BI-Project/raw/main/reports/Beverage_Sales_Analytics_Report.docx" target="_blank" class="plink">
+        <svg class="ico" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM8 13h8v1H8v-1zm0 3h8v1H8v-1zm0-6h5v1H8v-1z"/></svg>
+        Word Report
+      </a>
+      <a href="https://powerbiport-egmaq2at.manus.space" target="_blank" class="plink">
+        <svg class="ico" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+        Live Dashboard
+      </a>
+    </div>
+  </div>
+
+  <!-- PROJECT 3 -->
+  <div class="proj-card fade-up" style="transition-delay:0.1s">
+    <div class="proj-top">
+      <span class="proj-num">03</span>
+      <span class="proj-status">Live Dashboard</span>
+    </div>
+    <div class="proj-body">
+      <h3 class="proj-name">British Airways — Customer Sentiment Analysis</h3>
+      <p class="proj-subtitle">Tableau-powered analysis of 2,000+ airline reviews across 6 years (2017–2023)</p>
+      <div class="proj-impact">
+        <div class="impact-title">Impact &amp; Results</div>
+        <ul class="impact-list">
+          <li><strong>Analyzed</strong> <span class="metric">2,000+</span> British Airways customer reviews (2017–2023) using Tableau, surfacing an average overall rating of <span class="metric">4.2/10</span> with critical service gaps.</li>
+          <li><strong>Identified</strong> Seat Comfort (<span class="metric">2.9/5</span>) and Value for Money (<span class="metric">2.8/5</span>) as the lowest-rated dimensions — directly informing cabin and pricing strategy.</li>
+          <li><strong>Discovered</strong> Boeing 787 &amp; 777 receive significantly higher satisfaction scores vs. older aircraft — enabling fleet upgrade prioritization decisions.</li>
+          <li><strong>Delivered</strong> 3 strategic recommendations + live interactive dashboard + Tableau Public dashboard.</li>
+        </ul>
+      </div>
+      <div class="proj-skills">
+        <span class="proj-skill">Tableau</span><span class="proj-skill">Tableau Public</span>
+        <span class="proj-skill">Sentiment Analysis</span><span class="proj-skill">Data Visualization</span>
+        <span class="proj-skill">Customer Experience</span>
+      </div>
+    </div>
+    <div class="proj-links">
+      <a href="https://github.com/Purva-Thorat/British-Airways-Review-Analysis" target="_blank" class="plink">
+        <svg class="ico" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.74-1.33-1.74-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .1-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 013-.4c1.02.004 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.65.25 2.87.12 3.17.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub Repo
+      </a>
+      <a href="https://public.tableau.com/views/BritishAirwaysReview_17750702669270/Dashboard1" target="_blank" class="plink">
+        <svg class="ico" viewBox="0 0 24 24"><path d="M11 2v3H8V2h3zm5 0v3h-3V2h3zm5 5v3h-3V7h3zM2 7v3H-1V7h3zm4 0v3H3V7h3zm5 0v3H8V7h3zm5 0v3h-3V7h3zM2 12v3H-1v-3h3zm4 0v3H3v-3h3zm5 0v3H8v-3h3zm5 0v3h-3v-3h3zm3 0v3h-3v-3h3zM6 17v3H3v-3h3zm5 0v3H8v-3h3zm5 0v3h-3v-3h3z"/></svg>
+        Tableau Public
+      </a>
+      <a href="https://ba-reviews-enzdyw95.manus.space/" target="_blank" class="plink">
+        <svg class="ico" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+        Live Dashboard
+      </a>
+    </div>
+  </div>
+
+  <!-- PROJECT 4 -->
+  <div class="proj-card fade-up" style="transition-delay:0.15s">
+    <div class="proj-top">
+      <span class="proj-num">04</span>
+      <span class="proj-status">Live Dashboard</span>
+    </div>
+    <div class="proj-body">
+      <h3 class="proj-name">Netflix Content Analysis Dashboard</h3>
+      <p class="proj-subtitle">SQL-powered deep-dive into 8,807 titles across 150+ countries</p>
+      <div class="proj-impact">
+        <div class="impact-title">Impact &amp; Results</div>
+        <ul class="impact-list">
+          <li><strong>Wrote</strong> <span class="metric">15+</span> advanced PostgreSQL queries (CTEs, window functions, array ops) to analyze Netflix's <span class="metric">8,807-title</span> library spanning <span class="metric">150+ countries</span> and <span class="metric">40+ genres</span>.</li>
+          <li><strong>Revealed</strong> content split: <span class="metric">69.6%</span> Movies vs <span class="metric">30.4%</span> TV Shows — USA dominating at <span class="metric">41.9%</span>, India as top growth market at <span class="metric">11.9%</span>.</li>
+          <li><strong>Built</strong> a React dashboard with dark cinematic UI featuring <span class="metric">8 interactive visualizations</span> and responsive design.</li>
+          <li><strong>Identified</strong> International Movies (<span class="metric">31.3%</span>) and Dramas (<span class="metric">27.6%</span>) as top genres; Anupam Kher as most prolific actor (<span class="metric">43 appearances</span>).</li>
+        </ul>
+      </div>
+      <div class="proj-skills">
+        <span class="proj-skill">SQL</span><span class="proj-skill">PostgreSQL</span>
+        <span class="proj-skill">Window Functions</span><span class="proj-skill">CTEs</span>
+        <span class="proj-skill">Data Analysis</span>
+      </div>
+    </div>
+    <div class="proj-links">
+      <a href="https://github.com/Purva-Thorat/netflix-data-analysis" target="_blank" class="plink">
+        <svg class="ico" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.74-1.33-1.74-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .1-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 013-.4c1.02.004 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.65.25 2.87.12 3.17.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub Repo
+      </a>
+      <a href="https://github.com/Purva-Thorat/netflix-data-analysis/raw/main/reports/NETFLIX_ANALYSIS_COMPLETE_REPORT.docx" target="_blank" class="plink">
+        <svg class="ico" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM8 13h8v1H8v-1zm0 3h8v1H8v-1zm0-6h5v1H8v-1z"/></svg>
+        Word Report
+      </a>
+      <a href="https://netflixdash-qhvxeycx.manus.space/?manus_scraper=1" target="_blank" class="plink">
+        <svg class="ico" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+        Live Dashboard
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="sec-header fade-up">
+    <div class="sec-tag">04 — Get In Touch</div>
+    <h2 class="sec-title">Let's work</h2>
+    <span class="sec-sub">together.</span>
+  </div>
+  <div class="contact-grid">
+    <div class="fade-up">
+      <p class="contact-desc" style="font-size:1rem;line-height:1.8">
+        Open to <strong style="color:var(--accent)">internships</strong> and opportunities where my skills in data, BI, and AI can make an impact. If you're looking for someone who ships <strong>complete, end-to-end work</strong> — let's connect.
+      </p>
+      <div style="margin-top:2rem;display:flex;gap:0.8rem;flex-wrap:wrap">
+        <a href="https://www.linkedin.com/in/purva-thorat-a00138290" target="_blank" class="btn btn-primary">&#128101; Connect on LinkedIn</a>
+        <a href="https://github.com/Purva-Thorat" target="_blank" class="btn btn-outline">&#128279; View GitHub</a>
+      </div>
+    </div>
+    <div class="fade-up" style="transition-delay:0.1s">
+      <div class="contact-cards">
+        <a href="https://www.linkedin.com/in/purva-thorat-a00138290" target="_blank" class="contact-card">
+          <div class="cc-icon">in</div>
+          <div><div class="cc-label">LinkedIn</div><div class="cc-value">linkedin.com/in/purva-thorat-a00138290</div></div>
+        </a>
+        <a href="https://github.com/Purva-Thorat" target="_blank" class="contact-card">
+          <div class="cc-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.74-1.33-1.74-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .1-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 013-.4c1.02.004 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.65.25 2.87.12 3.17.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          </div>
+          <div><div class="cc-label">GitHub</div><div class="cc-value">github.com/Purva-Thorat</div></div>
+        </a>
+        <a href="mailto:" class="contact-card">
+          <div class="cc-icon">&#9993;</div>
+          <div><div class="cc-label">Email</div><div class="cc-value">[ Add your email ]</div></div>
+        </a>
+        <a href="#projects" class="contact-card">
+          <div class="cc-icon">&#128188;</div>
+          <div><div class="cc-label">Portfolio</div><div class="cc-value">4 projects &middot; 4 live dashboards &middot; All open-source</div></div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>&#169; 2026 Purva Thorat — Built with data &amp; intention.</p>
+  <div class="footer-links">
+    <a href="https://www.linkedin.com/in/purva-thorat-a00138290" target="_blank">in</a>
+    <a href="https://github.com/Purva-Thorat" target="_blank">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.74-1.33-1.74-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .1-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 013-.4c1.02.004 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.65.25 2.87.12 3.17.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+    </a>
+  </div>
+</footer>
+
+<!-- BACK TO TOP -->
+<a href="#hero" class="back-top" id="backTop">&#8679;</a>
+
+<script>
+// ── ALL JS — zero external dependencies ──
+
+// Fade-in on scroll (replaces AOS)
+var fadeEls = document.querySelectorAll('.fade-up');
+function checkFade(){
+  fadeEls.forEach(function(el){
+    var r = el.getBoundingClientRect();
+    if(r.top < window.innerHeight - 60) el.classList.add('visible');
+  });
+}
+window.addEventListener('scroll', checkFade, {passive:true});
+checkFade(); // run immediately on load
+
+// Skill bars
+function checkBars(){
+  document.querySelectorAll('.sk-fill').forEach(function(b){
+    if(b.dataset.done) return;
+    var r = b.getBoundingClientRect();
+    if(r.top < window.innerHeight){
+      b.dataset.done = '1';
+      setTimeout(function(){ b.style.width = b.dataset.w; }, 200);
+    }
+  });
+}
+window.addEventListener('scroll', checkBars, {passive:true});
+checkBars();
+
+// Counter animation
+function checkCounters(){
+  document.querySelectorAll('[data-count]').forEach(function(el){
+    if(el.dataset.done) return;
+    var r = el.getBoundingClientRect();
+    if(r.top < window.innerHeight){
+      el.dataset.done='1';
+      var target = parseInt(el.dataset.count), cur = 0;
+      var step = Math.max(1, Math.floor(target/40));
+      var t = setInterval(function(){
+        cur += step;
+        if(cur >= target){ cur = target; clearInterval(t); el.textContent = target+'+'; }
+        else el.textContent = cur;
+      }, 40);
+    }
+  });
+}
+window.addEventListener('scroll', checkCounters, {passive:true});
+checkCounters();
+
+// Custom cursor
+var cur = document.getElementById('cur'), dot = document.getElementById('curDot');
+var mx=0,my=0,cx=0,cy=0;
+document.addEventListener('mousemove', function(e){
+  mx=e.clientX; my=e.clientY;
+  if(dot){ dot.style.left=(mx-2.5)+'px'; dot.style.top=(my-2.5)+'px'; }
+});
+(function loop(){
+  cx += (mx-cx)*0.12; cy += (my-cy)*0.12;
+  if(cur){ cur.style.left=(cx-9)+'px'; cur.style.top=(cy-9)+'px'; }
+  requestAnimationFrame(loop);
+})();
+if('ontouchstart' in window){ if(cur)cur.style.display='none'; if(dot)dot.style.display='none'; }
+
+// Hamburger
+document.getElementById('ham').addEventListener('click',function(){ document.getElementById('mobNav').classList.add('open'); });
+document.getElementById('mobClose').addEventListener('click',function(){ document.getElementById('mobNav').classList.remove('open'); });
+
+// Scroll behaviors: nav hide, progress bar, back-to-top, active links
+var navbar = document.getElementById('navbar');
+var lastSt = 0;
+window.addEventListener('scroll', function(){
+  var st = window.scrollY;
+  if(st > lastSt && st > 100) navbar.classList.add('hide');
+  else navbar.classList.remove('hide');
+  lastSt = st;
+  var h = document.documentElement.scrollHeight - window.innerHeight;
+  if(h > 0) document.getElementById('progBar').style.width = (st/h*100)+'%';
+  document.getElementById('backTop').classList.toggle('show', st > 500);
+  document.querySelectorAll('section[id]').forEach(function(sec){
+    var top = sec.offsetTop - 200, bot = top + sec.offsetHeight;
+    var link = document.querySelector('.nav-links a[data-s="'+sec.id+'"]');
+    if(link) link.classList.toggle('active', st >= top && st < bot);
+  });
+}, {passive:true});
+</script>
+</body>
+</html>
